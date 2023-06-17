@@ -26,12 +26,14 @@ app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", ".Knowledge API V1"); });
 
 app.MapGet("/articles", async (ArticleDbContext db) => await db.Articles.ToListAsync());
+
 app.MapPost("/article", async (ArticleDbContext db, Article article) =>
 {
 	await db.Articles.AddAsync(article);
 	await db.SaveChangesAsync();
 	return Results.Created($"/article/{article.Id}", article);
 });
+
 app.MapGet("/article/{id}", async (ArticleDbContext db, int id) => await db.Articles.FindAsync(id));
 
 app.MapPut("/article/{id}", async (ArticleDbContext db, Article updatearticle, int id) =>
@@ -46,6 +48,19 @@ app.MapPut("/article/{id}", async (ArticleDbContext db, Article updatearticle, i
 	article.IsActive = updatearticle.IsActive;
 	await db.SaveChangesAsync();
 	return Results.NoContent();
+});
+
+app.MapDelete("/article/{id}", async (ArticleDbContext db, int id) =>
+{
+	var article = await db.Articles.FindAsync(id);
+	if (article is null)
+	{
+		return Results.NotFound();
+	}
+
+	db.Articles.Remove(article);
+	await db.SaveChangesAsync();
+	return Results.Ok();
 });
 
 app.Run();
