@@ -35,6 +35,7 @@ app.MapPost("/article", async (ArticleDbContext db, Article article) =>
 	await db.SaveChangesAsync();
 	return Results.Created($"/article/{article.Id}", article);
 });
+app.MapGet("/article/{id}", async (ArticleDbContext db, int id) => await db.Articles.FindAsync(id));
 
 
 app.Run();
