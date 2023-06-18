@@ -28,6 +28,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", ".Knowledge API V1"); });
 
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 app.MapGet("/article", async (ArticleDbContext db) => await db.Articles.ToListAsync());
 
 app.MapPost("/article", async (ArticleDbContext db, Article article) =>
