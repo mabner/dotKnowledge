@@ -28,7 +28,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", ".Knowledge API V1"); });
 
-app.MapGet("/articles", async (ArticleDbContext db) => await db.Articles.ToListAsync());
+app.MapGet("/article", async (ArticleDbContext db) => await db.Articles.ToListAsync());
 
 app.MapPost("/article", async (ArticleDbContext db, Article article) =>
 {
@@ -47,7 +47,6 @@ app.MapPut("/article/{id}", async (ArticleDbContext db, Article updatearticle, i
 	article.UpdatedAt = DateTime.Now;
 	article.Title = updatearticle.Title;
 	article.Content = updatearticle.Content;
-	article.UpdatedAt = updatearticle.UpdatedAt;
 	article.IsActive = updatearticle.IsActive;
 	await db.SaveChangesAsync();
 	return Results.NoContent();
