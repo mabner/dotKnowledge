@@ -5,9 +5,12 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<ArticleDbContext>(options => options.UseInMemoryDatabase("items"));
+var connString = builder.Configuration.GetConnectionString("Articles") ?? "Data Source=dotkb.db";
 
+builder.Services.AddEndpointsApiExplorer();
+
+//builder.Services.AddDbContext<ArticleDbContext>(options => options.UseInMemoryDatabase("items"));
+builder.Services.AddSqlite<ArticleDbContext>(connString);
 
 builder.Services.AddSwaggerGen(s =>
 {
