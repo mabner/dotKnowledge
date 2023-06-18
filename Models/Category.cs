@@ -8,5 +8,7 @@ namespace dotKnowledge.Models
         public string Content { get; set; } = "WIP";
         public int ArticlesCount { get; set; }
 
+        public ICollection<Article> Articles { get; }
+
     }
 }
