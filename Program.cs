@@ -9,7 +9,6 @@ var connString = builder.Configuration.GetConnectionString("Articles") ?? "Data 
 
 builder.Services.AddEndpointsApiExplorer();
 
-//builder.Services.AddDbContext<ArticleDbContext>(options => options.UseInMemoryDatabase("items"));
 builder.Services.AddSqlite<ArticleDbContext>(connString);
 
 builder.Services.AddSwaggerGen(s =>
