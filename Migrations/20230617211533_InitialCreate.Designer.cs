@@ -10,7 +10,7 @@ using dotKnowledge.Data;
 
 namespace dotKnowledge.Migrations
 {
-    [DbContext(typeof(ArticleDbContext))]
+    [DbContext(typeof(Data.KBDbContext))]
     [Migration("20230617211533_InitialCreate")]
     partial class InitialCreate
     {
