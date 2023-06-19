@@ -24,7 +24,6 @@ namespace dotKnowledge.Endpoints
                 if (category is null) return Results.NotFound();
                 category.ParentId = updatecategory.ParentId;
                 category.Name = updatecategory.Name;
-                category.Content = updatecategory.Content;
                 await db.SaveChangesAsync();
                 return Results.NoContent();
             });
